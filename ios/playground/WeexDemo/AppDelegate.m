@@ -50,7 +50,21 @@
     
     [self initWeexSDK];
     
-    self.window.rootViewController = [[WXRootViewController alloc] initWithRootViewController:[self demoController]];
+    UITabBarController *tabBarVC = [[UITabBarController alloc] init];
+
+    
+    WXDemoViewController *weexVC = [[WXDemoViewController alloc] init];
+    weexVC.url = [[NSURL alloc] initWithString:@"https://raw.githubusercontent.com/apache/incubator-weex/master/ios/playground/bundlejs/vue/components/list.js?wh_weex=true"];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:weexVC];
+    
+    tabBarVC.viewControllers = [[NSArray alloc] initWithObjects:navController, [self demoController], nil];
+    self.window.rootViewController = tabBarVC;
+    
+    [[tabBarVC.tabBar.items objectAtIndex:0] setTitle:NSLocalizedString(@"BotonMapas", @"comment")];
+    
+    [[tabBarVC.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"BotonRA", @"comment")];
+    
+
     [self.window makeKeyAndVisible];
     
     [self startSplashScreen];
